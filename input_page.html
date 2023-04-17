@@ -112,7 +112,7 @@ console.log("Save to File button clicked!");
         }
       }
     };
-    xhr.open("PUT", "https://api.github.com/repos/bewareirbear/Project-Spot/data.json");
+    xhr.open("PUT", "https://api.github.com/repos/bewareirbear/Project-Spot/data");
     xhr.setRequestHeader("Authorization", "Insert Private Key");
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.send(JSON.stringify({

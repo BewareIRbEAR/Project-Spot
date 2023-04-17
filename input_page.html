@@ -84,26 +84,39 @@
 	<button type="button" onclick="saveToFile()">Save to File</button>
 
 	<script>
-		// Array to store inputs
-		var inputs = [];
+  // Array to store inputs
+  var inputs = [];
 
-		// Function to add input to array and display in list
-		function addInput() {
-			var input = document.getElementById("input").value;
-			inputs.push(input);
-			document.getElementById("inputList").innerHTML += "<li>" + input + "</li>";
-			document.getElementById("input").value = "";
-		}
+  // Function to add input to array and display in list
+  function addInput() {
+    var input = document.getElementById("input").value;
+    inputs.push(input);
+    document.getElementById("inputList").innerHTML += "<li>" + input + "</li>";
+    document.getElementById("input").value = "";
+  }
 
-		// Function to save inputs to file
-		function saveToFile() {
-			var data = "var inputs = " + JSON.stringify(inputs) + ";";
-			var file = new Blob([data], {type: "text/plain"});
-			var a = document.createElement("a");
-			a.href = URL.createObjectURL(file);
-			a.download = "inputs.js";
-			a.click();
-		}
-	</script>
+  // Function to save inputs to file
+  function saveToFile() {
+    var data = JSON.stringify(inputs);
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          console.log("Data saved to file!");
+        } else {
+          console.error("Failed to save data to file!");
+        }
+      }
+    };
+    xhr.open("PUT", "https://api.github.com/repos/username/repo/contents/data.json");
+    xhr.setRequestHeader("Authorization", "token YOUR_GITHUB_TOKEN");
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.send(JSON.stringify({
+      message: "Add data",
+      content: btoa(data),
+      branch: "main"
+    }));
+  }
+</script>
 </body>
 </html>

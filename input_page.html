@@ -99,6 +99,8 @@
 
   // Function to save inputs to file
   function saveToFile() {
+console.log("Save to File button clicked!");
+
     var data = JSON.stringify(inputs);
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Input Array Example</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f8f8f8;
+			padding: 20px;
+			margin: 0;
+		}
+
+		h1 {
+			text-align: center;
+			color: #444444;
+			margin-top: 0;
+		}
+
+		form {
+			margin-bottom: 20px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 5px;
+			color: #555555;
+		}
+
+		input[type="text"] {
+			width: 100%;
+			padding: 10px;
+			border-radius: 5px;
+			border: none;
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+			font-size: 16px;
+		}
+
+		button {
+			background-color: #2ecc71;
+			color: #ffffff;
+			border: none;
+			border-radius: 5px;
+			padding: 10px;
+			font-size: 16px;
+			cursor: pointer;
+		}
+
+		button:hover {
+			background-color: #27ae60;
+		}
+
+		ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		li {
+			background-color: #ffffff;
+			padding: 10px;
+			border-radius: 5px;
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+			margin-bottom: 10px;
+		}
+
+		button[type="submit"] {
+			background-color: #3498db;
+		}
+
+		button[type="submit"]:hover {
+			background-color: #2980b9;
+		}
+	</style>
+</head>
+<body>
+	<h1>Input Array Example</h1>
+	<form>
+		<label for="input">Enter a value:</label>
+		<input type="text" id="input">
+		<button type="button" onclick="addInput()">Add</button>
+	</form>
+	<p>Inputs:</p>
+	<ul id="inputList"></ul>
+	<button type="button" onclick="saveToFile()">Save to File</button>
+
+	<script>
+		// Array to store inputs
+		var inputs = [];
+
+		// Function to add input to array and display in list
+		function addInput() {
+			var input = document.getElementById("input").value;
+			inputs.push(input);
+			document.getElementById("inputList").innerHTML += "<li>" + input + "</li>";
+			document.getElementById("input").value = "";
+		}
+
+		// Function to save inputs to file
+		function saveToFile() {
+			var data = "var inputs = " + JSON.stringify(inputs) + ";";
+			var file = new Blob([data], {type: "text/plain"});
+			var a = document.createElement("a");
+			a.href = URL.createObjectURL(file);
+			a.download = "inputs.js";
+			a.click();
+		}
+	</script>
+</body>
+</html>
